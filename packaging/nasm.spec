@@ -9,6 +9,7 @@ URL: http://nasm.sourceforge.net/
 Source0: nasm-%{version}.tar.bz2
 Source1: nasm-%{version}-xdoc.tar.bz2
 Source2: nasm.sh
+Source1001: packaging/nasm.manifest 
 # >> gbp-patch-tags         # auto-added by gbp
 # << gbp-patch-tags         # auto-added by gbp
 BuildRequires: perl
@@ -34,6 +35,7 @@ include linker, library manager, loader, and information dump.
 tar xjf %{SOURCE1} --strip-components 1
 
 %build
+cp %{SOURCE1001} .
 %configure
 make all
 
@@ -49,12 +51,14 @@ cp %{SOURCE2} $RPM_BUILD_ROOT/etc/profile.d/
 %remove_docs
 
 %files
+%manifest nasm.manifest
 %{_bindir}/nasm
 %{_bindir}/ndisasm
 /etc/profile.d/nasm.sh
 
 
 %files rdoff
+%manifest nasm.manifest
 %defattr(-,root,root)
 %{_bindir}/ldrdf
 %{_bindir}/rdf2bin
