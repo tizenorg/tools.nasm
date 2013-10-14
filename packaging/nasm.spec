@@ -43,6 +43,8 @@ make all
 rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT%{_bindir}
 mkdir -p $RPM_BUILD_ROOT/%{_mandir}/man1
+mkdir -p %{buildroot}/usr/share/license
+cp LICENSE %{buildroot}/usr/share/license/%{name}
 make INSTALLROOT=$RPM_BUILD_ROOT install install_rdf
 install -d $RPM_BUILD_ROOT/etc/profile.d
 cp %{SOURCE2} $RPM_BUILD_ROOT/etc/profile.d/ 
@@ -51,6 +53,7 @@ cp %{SOURCE2} $RPM_BUILD_ROOT/etc/profile.d/
 %remove_docs
 
 %files
+/usr/share/license/%{name}
 %manifest nasm.manifest
 %{_bindir}/nasm
 %{_bindir}/ndisasm
