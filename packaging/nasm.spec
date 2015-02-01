@@ -31,7 +31,7 @@ tar xjf %{SOURCE1} --strip-components 1
 
 %build
 %configure
-make all
+make all %{?_smp_mflags}
 
 %install
 rm -rf $RPM_BUILD_ROOT
