@@ -2,16 +2,13 @@
 Summary: A portable x86 assembler which uses Intel-like syntax
 Name: nasm
 Version: 2.08rc7
-Release: 2.16
+Release: 2.1
 License: simplified BSD license
 Group: Development/Languages
 URL: http://nasm.sourceforge.net/
 Source0: nasm-%{version}.tar.bz2
 Source1: nasm-%{version}-xdoc.tar.bz2
 Source2: nasm.sh
-Source1001: packaging/nasm.manifest 
-# >> gbp-patch-tags         # auto-added by gbp
-# << gbp-patch-tags         # auto-added by gbp
 BuildRequires: perl
 
 %package rdoff
@@ -30,14 +27,11 @@ include linker, library manager, loader, and information dump.
 
 %prep
 %setup -q
-# >> gbp-apply-patches    # auto-added by gbp
-# << gbp-apply-patches    # auto-added by gbp
 tar xjf %{SOURCE1} --strip-components 1
 
 %build
-cp %{SOURCE1001} .
 %configure
-make all
+make all %{?_smp_mflags}
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -51,14 +45,12 @@ cp %{SOURCE2} $RPM_BUILD_ROOT/etc/profile.d/
 %remove_docs
 
 %files
-%manifest nasm.manifest
 %{_bindir}/nasm
 %{_bindir}/ndisasm
 /etc/profile.d/nasm.sh
 
 
 %files rdoff
-%manifest nasm.manifest
 %defattr(-,root,root)
 %{_bindir}/ldrdf
 %{_bindir}/rdf2bin
